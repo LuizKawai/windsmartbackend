@@ -13,6 +13,7 @@ func main() {
 	api.Use(rest.DefaultDevStack...)
 
 	router, err := rest.MakeRouter(
+		&rest.Route{"GET", "/ejemplo", example},
 		// ----  WindSmart Get Request ---
 		///////////////////////////////////////////////////////////////////////////////////////////////////////
 		&rest.Route{"GET", "/employees", Employees_handler},
@@ -40,6 +41,13 @@ func main() {
 
 	api.SetApp(router)
 	log.Fatal(http.ListenAndServe(":9988", api.MakeHandler()))
+}
+
+func example(w rest.ResponseWriter, r *rest.Request) {
+	w.WriteJson(map[string]string){
+		"nombre":"chico",
+		"correo":"ritual@gmail.com"
+	}
 }
 
 // ----  WindSmart ---
